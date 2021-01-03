@@ -8,6 +8,19 @@ var session = require('express-session');
 var passport = require('passport');
 var dotenv = require('dotenv').config();
 
+var User = require('./models/user');
+var Event = require('./models/event');
+var Follow = require('./models/follow');
+
+User.sync().then(() => {
+  Event.belongsTo(User, {foreignKey: 'createdBy'});
+  Event.sync();
+  Follow.belongsTo(User, {foreignKey: 'follow'});
+  Follow.belongsTo(User, {foreignKey: 'followed'});
+  Follow.sync();
+});
+
+
 var TwitterStrategy = require('passport-twitter').Strategy;
 var TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
 var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
@@ -27,7 +40,12 @@ passport.use(new TwitterStrategy({
   },
   function(token, tokenSecret, profile, done) {
     process.nextTick(function () {
-      return done(null, profile);
+      User.upsert({
+        userId: profile.id,
+        username: profile.username
+      }).then(() => {
+        done(null, profile);
+      });
     });
   }
 ));
