@@ -3,3 +3,24 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div
+    if user
+      div
+        a(href="/logout") #{user.username} をログアウト
+      div
+        a(href="/events/new") 気になるイベントを登録する
+      - var hasEvent = events.length > 0
+      if hasEvent
+        h3 あなたのカレンダー
+        table.table
+          tr
+            th 日時
+            th イベント名
+          each event in events
+            tr
+              td #{event.eventTime}
+              td
+                a(href=`/events/${event.eventId}`) #{event.eventName}
+    else
+      div
+        a(href="/login") ログイン

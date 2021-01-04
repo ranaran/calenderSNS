@@ -54,6 +54,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var eventsRouter = require('./routes/events');
 
 var app = express();
 app.use(helmet());
@@ -76,6 +77,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/events', eventsRouter);
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback',

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  form(method="post" action="/events")
+    div
+      input(type="text" name="eventname" placeholder="イベント名")
+    div
+      input(type="text" name="eventplace" placeholder="イベント場所")
+    div 
+      h5 開始時間
+      input(type="datetime-local" name="eventtime")
+    div
+      h5 イベント詳細
+      textarea(name="eventdesc")
+    button(type="submit") イベントをカレンダーに登録
