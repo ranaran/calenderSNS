@@ -26,7 +26,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
   res.redirect('/events/' + eventId);
 });
 
-router.get('/:eventId', authenticationEnsurer, (req, res, next) => {
+router.get('/:eventId', (req, res, next) => {
   Event.findOne({
     include: [
       {

@@ -15,10 +15,12 @@ var Follow = require('./models/follow');
 User.sync().then(() => {
   Event.belongsTo(User, {foreignKey: 'createdBy'});
   Event.sync();
-  Follow.belongsTo(User, {foreignKey: 'follow'});
-  Follow.belongsTo(User, {foreignKey: 'followed'});
-  Follow.sync();
 });
+
+Follow.sync().then(() => {
+  User.hasMany(Follow, {foreignKey: 'followed'});
+  User.sync();
+})
 
 
 var TwitterStrategy = require('passport-twitter').Strategy;
@@ -44,7 +46,12 @@ passport.use(new TwitterStrategy({
         userId: profile.id,
         username: profile.username
       }).then(() => {
-        done(null, profile);
+        Follow.upsert({
+          follow: profile.id,
+          followed: profile.id
+        }).then(() => {
+          done(null, profile);
+        });
       });
     });
   }
@@ -55,6 +62,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var eventsRouter = require('./routes/events');
+var userRouter = require('./routes/user');
 
 var app = express();
 app.use(helmet());
@@ -78,6 +86,7 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/events', eventsRouter);
+app.use('/', userRouter);
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback',

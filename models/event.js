@@ -27,7 +27,7 @@ const Event = loader.database.define(
       allowNull: false
     },
     createdBy: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       allowNull: false
     },
     updatedAt: {

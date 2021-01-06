@@ -5,18 +5,14 @@ const Sequelize = loader.Sequelize;
 const Follow = loader.database.define(
   'follows',
   {
-    followId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
     follow: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
+      primaryKey: true,
       allowNull: false
     },
     followed: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
+      primaryKey: true,
       allowNull: false
     }
   },

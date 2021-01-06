@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  - var buttonLabels = ['フォローする', 'フォローしています']
+  if viewuser
+    - var isNotSelf = viewuser.id !== eventuser
+  else
+    - var isNotSelf = true
+  if isNotSelf
+    if isFollowed
+      button(
+        data-viewuser-id=viewuser.id
+        data-eventuser-id=eventuser
+        data-isfollowed=isFollowed
+        data-isauthenticated=isAuthenticated).followButton #{buttonLabels[isFollowed]}
+      p #{viewuser.id}
+    else
+      if isAuthenticated
+        button(
+          data-viewuser-id=viewuser.id
+          data-eventuser-id=eventuser
+          data-isfollowed=isFollowed
+          data-isauthenticated=isAuthenticated).followButton #{buttonLabels[isFollowed]}
+      else
+        button.noAuthenticatedFollowButton 'フォローする'
+  div
+    - var hasEvent = events.length > 0
+    if hasEvent
+      h3 あなたのカレンダー
+      table.table
+        tr
+          th 日時
+          th イベント名
+        each event in events
+          tr
+            td #{event.eventTime}
+            td
+              a(href=`/events/${event.eventId}`) #{event.eventName}
