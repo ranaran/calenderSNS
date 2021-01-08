@@ -48,7 +48,9 @@ passport.use(new TwitterStrategy({
       }).then(() => {
         Follow.upsert({
           follow: profile.id,
-          followed: profile.id
+          followed: profile.id,
+          followname: profile.username,
+          followedname: profile.username
         }).then(() => {
           done(null, profile);
         });

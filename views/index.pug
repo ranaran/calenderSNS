@@ -1,26 +1,33 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  div
-    if user
-      div
-        a(href="/logout") #{user.username} をログアウト
-      div
-        a(href="/events/new") 気になるイベントを登録する
-      - var hasEvent = events.length > 0
-      if hasEvent
-        h3 あなたのカレンダー
-        table.table
+  div.jumbotron.my-3
+    h2(style="font-weight: bold").my-3 興味のあるイベントの情報をみんなで共有しよう
+    h3.my-3 今日の世界では、日々、様々なイベントが開催されています！興味のあるイベントの情報を、友人同士で共有しましょう！イベント情報の共有は、あなたの生活をきっと豊かにすることでしょう！
+  if user
+    div
+      a(href="/events/new").btn.btn-info 興味のあるイベントを登録する
+    - var hasEvent = events.length > 0
+    h5.my-3 My Calender
+    if hasEvent
+      table.table
+        tr
+          th イベント名
+          th 日時
+          th 投稿者
+        each event in events
           tr
-            th 日時
-            th イベント名
-          each event in events
-            tr
-              td #{event.eventTime}
-              td
-                a(href=`/events/${event.eventId}`) #{event.eventName}
+            td
+              a(href=`/events/${event.eventId}`) #{event.eventName}
+            td #{event.formattedEventTime}
+            td 
+              a(href=`/${event.createdByName}`) #{event.createdByName}
     else
-      div
-        a(href="/login") ログイン
+      table.table
+        tr
+          td
+            h6(style="font-weight: bold").my-3 まだイベント予定はありません。
+            p
+              h7.my-3 イベントを登録するとここに表示されます。
+            p
+              h7.my-3 他のユーザーをフォローしましょう。彼/彼女らが気になっているイベントがここに表示されます。

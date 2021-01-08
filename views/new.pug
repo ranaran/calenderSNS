@@ -1,15 +1,17 @@
 extends layout
 
 block content
-  form(method="post" action="/events")
-    div
-      input(type="text" name="eventname" placeholder="イベント名")
-    div
-      input(type="text" name="eventplace" placeholder="イベント場所")
-    div 
-      h5 開始時間
-      input(type="datetime-local" name="eventtime")
-    div
-      h5 イベント詳細
-      textarea(name="eventdesc")
-    button(type="submit") イベントをカレンダーに登録
+  form(method="post" action="/events").my-3
+    div.form-group
+      label(for="eventname") イベント名
+      input(type="text" name="eventname")#eventname.form-control
+    div.form-group
+      label(for="eventplace") イベントの開催地
+      input(type="text" name="eventplace")#eventplace.form-control
+    div.form-group 
+      label(for="eventtime") 開始時間
+      input(type="datetime-local" name="eventtime")#eventtime.form-control
+    div.form-group
+      label(for="eventdesc") イベント詳細
+      textarea(name="eventdesc")#eventdesc.form-control
+    button(type="submit").btn.btn-info イベントをカレンダーに登録

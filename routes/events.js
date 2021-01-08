@@ -5,6 +5,7 @@ const authenticationEnsurer = require('./authentication-ensurer');
 const uuid = require('uuid');
 const Event = require('../models/event');
 const User = require('../models/user');
+const moment = require('moment-timezone');
 
 router.get('/new', authenticationEnsurer, (req, res, next) => {
   res.render('new', { user: req.user });
@@ -21,9 +22,11 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     eventTime: eventTime,
     eventDesc: req.body.eventdesc,
     createdBy: req.user.id,
+    createdByName: req.user.username,
     updatedAt: updatedAt
+  }).then(() => {
+    res.redirect('/events/' + eventId);
   });
-  res.redirect('/events/' + eventId);
 });
 
 router.get('/:eventId', (req, res, next) => {
@@ -40,6 +43,7 @@ router.get('/:eventId', (req, res, next) => {
     order: [['eventTime', 'ASC']]
   }).then((event) => {
     if (event) {
+      event.formattedEventTime = moment(event.eventTime).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
       res.render('event', {
         event: event
       });

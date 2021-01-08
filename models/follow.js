@@ -14,6 +14,14 @@ const Follow = loader.database.define(
       type: Sequelize.BIGINT,
       primaryKey: true,
       allowNull: false
+    },
+    followname: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    followedname: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   },
   {

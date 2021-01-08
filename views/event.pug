@@ -1,7 +1,15 @@
 extends layout
 
 block content
-  h4 #{event.eventName} 
-  p #{event.eventPlace}
-  p #{event.eventTime}
-  p #{event.eventDesc}
+  div.card.my-3
+    div.card-body
+      h4.card-title #{event.eventName} 
+      h6.card-subtitle 
+        p 開催地: #{event.eventPlace}
+      h6.card-subtitle 
+        p 開始時刻: #{event.formattedEventTime}
+      h6.card-subtitle
+        p 
+          span 投稿者: 
+          a(href=`/${event.createdByName}`) #{event.createdByName}
+      p.card-text #{event.eventDesc}

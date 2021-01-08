@@ -1,5 +1,10 @@
 'use strict';
 import $ from 'jquery';
+/*
+const global = Function('return this;')();
+global.jQuery = $;
+import bootstrap from 'bootstrap';
+*/
 
 /*
 $('.followedButton').each((i, e) => {
@@ -12,7 +17,7 @@ $('.followedButton').each((i, e) => {
 });
 */
 
-$('.followButton').each((i, e) => {
+$('.follow-toggle-button').each((i, e) => {
   const button = $(e);
   button.click(() => {
     const viewuser = button.data('viewuser-id');

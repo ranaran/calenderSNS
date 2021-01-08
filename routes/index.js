@@ -4,6 +4,7 @@ const authenticationEnsurer = require('./authentication-ensurer');
 const Event = require('../models/event');
 const User = require('../models/user');
 const Follow = require('../models/follow');
+const moment = require('moment-timezone');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -22,12 +23,15 @@ router.get('/', function(req, res, next) {
                 follow: req.user.id
               },
               required: true,
-              order: [['eventTime', 'ASC']]
             }
           ]
         }
-      ]
+      ],
+      order: [['eventTime', 'ASC']]
     }).then(events => {
+      events.forEach((event) => {
+        event.formattedEventTime = moment(event.eventTime).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+      });
       res.render('index', {
         title: title,
         user: req.user,

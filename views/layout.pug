@@ -1,8 +1,29 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    title= trope
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet",
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm",
+    crossorigin="anonymous")
+    link(rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css" type="text/css" charset="utf-8")
+  body(style="font-family: 'Jost', helvetica, arial, 'hiragino kaku gothic pro', meiryo, 'ms pgothic', sans-serif").container
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-3
+      div.navbar-header
+        a(href="/").navbar-brand.nav-link 
+          span(style="font-weight: bold") trope
+      ul.navbar-nav.mr-auto
+      ul.navbar-nav
+        if user
+          li.nav-item
+            a(href=`/${user.username}`).nav-link.btn.btn-outline-success.mx-2 #{user.username}でログイン中
+          li.nav-item
+            a(href="/logout").nav-link.btn.btn-outline-success.mx-2 ログアウト
+        else
+          li.nav-item
+            a(href="/login").nav-link.btn-outline-success ログイン
+    div.container
+      block content
     script(src="/javascripts/bundle.js")

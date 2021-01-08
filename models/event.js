@@ -30,6 +30,10 @@ const Event = loader.database.define(
       type: Sequelize.BIGINT,
       allowNull: false
     },
+    createdByName: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     updatedAt: {
       type: Sequelize.DATE,
       allowNull: false

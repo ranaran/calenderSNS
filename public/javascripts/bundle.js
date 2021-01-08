@@ -96,6 +96,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*
+const global = Function('return this;')();
+global.jQuery = $;
+import bootstrap from 'bootstrap';
+*/
+
+/*
 $('.followedButton').each((i, e) => {
   const button = $(e);
   button.click(() => {
@@ -106,7 +112,7 @@ $('.followedButton').each((i, e) => {
 });
 */
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.followButton').each(function (i, e) {
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.follow-toggle-button').each(function (i, e) {
   var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
   button.click(function () {
     var viewuser = button.data('viewuser-id');

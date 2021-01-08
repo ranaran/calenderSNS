@@ -21,30 +21,27 @@ block content
           data-isfollowed=isFollowed
           data-isauthenticated=isAuthenticated) #{buttonLabels[isFollowed]}
       else
-        button.noAuthenticatedFollowButton.nav-link.btn-outline-success フォローする
+        button.noAuthenticatedFollowButton.nav-link.btn-outline-success  フォローする
   div.card.my-3
     div.card-body
-      h5.card-title #{title}
+      h5.card-title 
+        a(href=`/${eventuser.username}`) #{title}
       p.card-subtitle.mb-2.text-muted
         a(href=`/${eventuser.username}/following`) フォロー：#{followCount}
       p.card-subtitle.mb-2.text-muted
         a(href=`/${eventuser.username}/followers`) フォロワー：#{followedCount}
     div.card-body
-      - var hasEvent = events.length > 0
-      h5.my-3 #{eventuser.username}'s Calender
-      if hasEvent
+      - var hasFollowings = followings.length > 0
+      h5.my-3 Followings
+      if hasFollowings
         table.table
-          tr
-            th 日時
-            th イベント名
-          each event in events
+          each follow in followings
             tr
-              td #{event.formattedEventTime}
-              td
-                a(href=`/events/${event.eventId}`) #{event.eventName}
+              td 
+                a(href=`/${follow.followedname}`) #{follow.followedname}
       else
         table.table
           tr
             td
-              h6(style="font-weight: bold").my-3 まだイベント予定はありません。
-              h7.my-3 イベントを登録するとここに表示されます。
+              h6(style="font-weight: bold").my-3 まだ誰もフォロワーしていません
+              h7.my-3 フォローするとここに表示され、トップページにフォローした相手のイベントが表示されます。
