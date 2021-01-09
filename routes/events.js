@@ -6,12 +6,14 @@ const uuid = require('uuid');
 const Event = require('../models/event');
 const User = require('../models/user');
 const moment = require('moment-timezone');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
-router.get('/new', authenticationEnsurer, (req, res, next) => {
-  res.render('new', { user: req.user });
+router.get('/new', authenticationEnsurer, csrfProtection, (req, res, next) => {
+  res.render('new', { user: req.user, csrfToken: req.csrfToken() });
 });
 
-router.post('/', authenticationEnsurer, (req, res, next) => {
+router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
   const eventId = uuid.v4();
   const updatedAt = new Date();
   const eventTime = new Date(req.body.eventtime);

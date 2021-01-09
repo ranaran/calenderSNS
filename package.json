@@ -9,6 +9,7 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "cookie-parser": "~1.4.3",
+    "csurf": "^1.11.0",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.0",
@@ -36,5 +37,8 @@
     "supertest": "^6.0.1",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2"
+  },
+  "engines": {
+    "node": "~10"
   }
 }

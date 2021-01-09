@@ -1,0 +1,7 @@
+{
+  "name": "calenderSNS",
+  "description": "カレンダー共有SNS",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
